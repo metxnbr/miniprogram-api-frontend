@@ -8,7 +8,7 @@ const LIST = KEYS.filter(item => item !== NOTHING).map(item => ({
   value: NAMES[item],
   isFetching: false,
   result: "",
-  checked: undefined,
+  error: ""
 }));
 
 //获取应用实例

@@ -14,7 +14,7 @@
   </view>
   <radio-group class="radio-group" bindchange="radioChange">
     <label class="radio" wx:for="{{list}}" wx:for-item="item" wx:key="index">
-      <radio color="pink" value="{{item.name}}" checked="{{item.checked}}" />
+      <radio color="pink" value="{{item.name}}" />
       {{item.value}}
       <view class="loading" wx:if="{{item.isFetching}}">loading...</view>
       <text class="result" wx:else>{{item.result}}</text>

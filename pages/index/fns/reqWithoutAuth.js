@@ -5,7 +5,6 @@ module.exports = function(name) {
   const url = "/secret";
 
   this.setData({
-    name: "",
     isFetching: true,
     list: setList.apply(this, [
       name,

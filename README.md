@@ -4,4 +4,4 @@
 
 ## snap
 
-![2](./snap.png)
+![2](./snap.gif)

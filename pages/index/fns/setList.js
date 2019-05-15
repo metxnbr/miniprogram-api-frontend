@@ -5,13 +5,9 @@ module.exports = function(name, action) {
     if (item.name === name) {
       return {
         ...item,
-        ...action,
-        checked: "true"
+        ...action
       };
     }
-    return {
-      ...item,
-      checked: undefined
-    };
+    return item;
   });
 };
