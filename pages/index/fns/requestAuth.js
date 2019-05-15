@@ -10,7 +10,8 @@ module.exports = function(name) {
       name,
       {
         isFetching: true,
-        error: ""
+        error: "",
+        result: ""
       }
     ])
   });
