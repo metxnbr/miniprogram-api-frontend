@@ -1,52 +1,57 @@
 //index.js
-const { NAMES, FNS } = require('./fns/index')
-const { NOTHING } = NAMES
-const KEYS = Object.keys(NAMES)
+const { NAMES, FNS } = require("./fns/index");
+const { NOTHING } = NAMES;
+const KEYS = Object.keys(NAMES);
 
 const LIST = KEYS.filter(item => item !== NOTHING).map(item => ({
   name: item,
   value: NAMES[item],
-}))
+  isFetching: false,
+  result: "",
+  checked: undefined,
+}));
 
 //获取应用实例
-const app = getApp()
+const app = getApp();
 
 Page({
   data: {
-    motto: 'Hello World',
+    motto: "Hello World",
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    canIUse: wx.canIUse("button.open-type.getUserInfo"),
+    isFetching: false,
     list: LIST,
-    name: ''
+    name: ""
   },
 
   radioChange(e) {
-    const { value } = e.detail
+    const { value } = e.detail;
     this.setData({
       name: value
-    })
+    });
   },
 
-  runFn: function () {
-    const { name } = this.data
-    const fn = FNS[name] || FNS[NOTHING]
+  runFn: function() {
+    const { name, isFetching } = this.data;
+    if (isFetching) return;
+    const fn = FNS[name] || FNS[NOTHING];
 
-    fn.call(this);
+    fn.call(this, name);
   },
 
   //事件处理函数
-  bindViewTap: function () {
+  bindViewTap: function() {
     wx.navigateTo({
-      url: '../logs/logs'
-    })
+      url: "../logs/logs"
+    });
   },
-  onLoad: function () {
+  onLoad: function() {
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
-      })
+      });
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
@@ -54,27 +59,27 @@ Page({
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
-        })
-      }
+        });
+      };
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
         success: res => {
-          app.globalData.userInfo = res.userInfo
+          app.globalData.userInfo = res.userInfo;
           this.setData({
             userInfo: res.userInfo,
             hasUserInfo: true
-          })
+          });
         }
-      })
+      });
     }
   },
-  getUserInfo: function (e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+  getUserInfo: function(e) {
+    console.log(e);
+    app.globalData.userInfo = e.detail.userInfo;
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
-    })
+    });
   }
-})
+});

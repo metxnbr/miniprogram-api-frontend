@@ -18,7 +18,7 @@
 .btn-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 30rpx;
+  margin-top: 60rpx;
 }
 
 .btn {
@@ -29,9 +29,14 @@
   background-color: pink;
 }
 
+.btn.disable {
+  color: #999;
+  background-color: #ddd;
+}
+
 .radio-group {
+  margin-top: 30rpx;
   padding: 0 30rpx;
-  font-size: 24rpx;
 }
 
 .radio {
@@ -39,9 +44,17 @@
   align-items: center;
   padding: 30rpx 0;
   border-bottom: 1px solid #ddd;
+  font-size: 24rpx;
+}
+
+.loading {
+  font-size: 24rpx;
+  margin-left: 30rpx;
+  color: #999;
 }
 
 .result {
+  font-size: 28rpx;
   margin-left: 30rpx;
-  color: pink;
+  color: #d77269;
 }

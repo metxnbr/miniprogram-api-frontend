@@ -10,13 +10,14 @@
     </block>
   </view>
   <view class="btn-wrap">
-    <view class="btn" bindtap="runFn">发起</view>
+    <view class="btn{{isFetching ? ' disable' : ''}}" bindtap="runFn">发起</view>
   </view>
   <radio-group class="radio-group" bindchange="radioChange">
     <label class="radio" wx:for="{{list}}" wx:for-item="item" wx:key="index">
       <radio color="pink" value="{{item.name}}" checked="{{item.checked}}" />
       {{item.value}}
-      <text class="result">result</text>
+      <view class="loading" wx:if="{{item.isFetching}}">loading...</view>
+      <text class="result" wx:else>{{item.result}}</text>
     </label>
   </radio-group>
 </view>
