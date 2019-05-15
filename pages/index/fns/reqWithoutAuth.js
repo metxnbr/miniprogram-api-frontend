@@ -9,7 +9,8 @@ module.exports = function(name) {
     list: setList.apply(this, [
       name,
       {
-        isFetching: true
+        isFetching: true,
+        error: ""
       }
     ])
   });
@@ -27,14 +28,15 @@ module.exports = function(name) {
       });
     })
     .catch(e => {
-      const result = e.data;
+      const msg = e && e.data;
+      const error = typeof msg === "string" ? msg : "error";
       this.setData({
         isFetching: false,
         list: setList.apply(this, [
           name,
           {
             isFetching: false,
-            result
+            error
           }
         ])
       });

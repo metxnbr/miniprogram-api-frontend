@@ -53,6 +53,12 @@
   color: #999;
 }
 
+.error {
+  font-size: 24rpx;
+  margin-left: 30rpx;
+  color: red;
+}
+
 .result {
   font-size: 28rpx;
   margin-left: 30rpx;

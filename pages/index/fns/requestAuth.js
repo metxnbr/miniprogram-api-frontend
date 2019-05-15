@@ -9,7 +9,8 @@ module.exports = function(name) {
     list: setList.apply(this, [
       name,
       {
-        isFetching: true
+        isFetching: true,
+        error: ""
       }
     ])
   });
@@ -35,7 +36,8 @@ module.exports = function(name) {
         list: setList.apply(this, [
           name,
           {
-            isFetching: false
+            isFetching: false,
+            error: "error"
           }
         ])
       });
