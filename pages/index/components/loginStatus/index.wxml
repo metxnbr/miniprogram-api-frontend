@@ -1,0 +1,12 @@
+<view class="wrap">
+  <view class="content {{status}}">
+    <view class="status-wrap">
+      <view class="status">
+        <view class="status-inner">
+          <view class="status-active{{status === 'loading' ? ' active' : ''}}"></view>
+        </view>
+      </view>
+    </view>
+    <view class="text">{{status}}</view>
+  </view>
+</view>

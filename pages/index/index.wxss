@@ -64,3 +64,18 @@
   margin-left: 30rpx;
   color: #d77269;
 }
+
+.re-login-btn-wrap {
+  display: flex;
+  margin-top: 30rpx;
+  justify-content: center;
+}
+
+.re-login-btn {
+  font-size: 24rpx;
+  padding: 0 30rpx;
+  border-radius: 10rpx;
+  line-height: 60rpx;
+  color: #4b3734;
+  border: 1px solid pink;
+}

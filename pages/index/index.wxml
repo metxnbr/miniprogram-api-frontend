@@ -9,6 +9,10 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
+  <login-status status="{{loginStatus}}" />
+  <view class="re-login-btn-wrap" wx:if="{{loginStatus === 'not-logined'}}">
+    <view class="re-login-btn" bindtap="reLogin">点击重新登录</view>
+  </view>
   <view class="btn-wrap">
     <view class="btn{{isFetching ? ' disable' : ''}}" bindtap="runFn">发起</view>
   </view>

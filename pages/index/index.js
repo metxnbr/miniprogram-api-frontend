@@ -1,4 +1,5 @@
 //index.js
+const login = require("../../login");
 const { NAMES, FNS } = require("./fns/index");
 const { NOTHING } = NAMES;
 const KEYS = Object.keys(NAMES);
@@ -22,7 +23,16 @@ Page({
     canIUse: wx.canIUse("button.open-type.getUserInfo"),
     isFetching: false,
     list: LIST,
-    name: ""
+    name: "",
+
+    loginStatus: "loading"
+  },
+
+  reLogin: function() {
+    this.setData({
+      loginStatus: "loading"
+    });
+    login.call(app);
   },
 
   radioChange(e) {
@@ -73,6 +83,18 @@ Page({
         }
       });
     }
+
+    app.loginReadyCallback = res => {
+      this.setData({
+        loginStatus: "logined"
+      });
+    };
+
+    app.loginErrorCallback = res => {
+      this.setData({
+        loginStatus: "not-logined"
+      });
+    };
   },
   getUserInfo: function(e) {
     console.log(e);

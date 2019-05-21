@@ -1,0 +1,97 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30rpx 0;
+  margin-top: 30rpx;
+}
+
+.text {
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.content.loading .text {
+  color: #999;
+}
+
+
+.content.logined .text {
+  color: green;
+}
+
+.content.not-logined .text {
+  color: red;
+}
+
+.content {
+}
+
+.status-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.status {
+  position: relative;
+  box-sizing: border-box;
+  width: 50rpx;
+  height: 50rpx;
+  padding: 10rpx;
+  border-radius: 50%;
+}
+
+.status-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.status-active {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.content.loading .status-inner,
+.content.loading .status-active {
+  background-color: #999;
+}
+
+.content.logined .status-inner,
+.content.logined .status-active {
+  background-color: green;
+}
+
+.content.not-logined .status-inner,
+.content.not-logined .status-active {
+  background-color: red;
+}
+
+.status-active.active {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  background-color: green;
+  animation: active 0.5s infinite alternate;
+}
+
+@keyframes active {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+}

@@ -3,22 +3,25 @@ const { request } = require("./utils/request");
 module.exports = function() {
   wx.checkSession({
     success: () => {
-      console.log("checkSession success");
       wx.getStorage({
         key: "ACCESS_TOKEN",
         success: res => {
           const access_token = res && res.data;
-          if(!access_token) {
-            login();
+          if (!access_token) {
+            login.call(this);
+          } else {
+            if (this.loginReadyCallback) {
+              this.loginReadyCallback(res);
+            }
           }
         },
         fail: () => {
-          login();
+          login.call(this);
         }
       });
     },
     fail: () => {
-      login();
+      login.call(this);
     }
   });
 
@@ -44,11 +47,21 @@ module.exports = function() {
             wx.setStorage({
               key: "ACCESS_TOKEN",
               data: access_token,
-              success: () => {}
+              success: res => {
+                if (this.loginReadyCallback) {
+                  this.loginReadyCallback(res);
+                }
+              },
+              fail: e => {
+                console.log(e);
+              }
             });
           })
           .catch(e => {
             console.log(e);
+            if (this.loginErrorCallback) {
+              this.loginErrorCallback(e);
+            }
           });
       }
     });
