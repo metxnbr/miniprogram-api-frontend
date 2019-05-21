@@ -31,14 +31,20 @@ module.exports = function(name) {
       });
     })
     .catch(e => {
-      console.log(e);
+      let error = "error";
+      if (e.statusCode === 401) {
+        error = "Unauthorized";
+        this.setData({
+          loginStatus: "not-logined"
+        });
+      }
       this.setData({
         isFetching: false,
         list: setList.apply(this, [
           name,
           {
             isFetching: false,
-            error: "error"
+            error
           }
         ])
       });

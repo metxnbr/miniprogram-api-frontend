@@ -1,4 +1,5 @@
 const { apiHost } = require("../env");
+const { ACCESS_TOKEN } = require("../constants");
 
 const checkRes = res => {
   const { statusCode } = res;
@@ -30,7 +31,7 @@ const requestWithoutAuth = ({ type, url, options }) => {
 const requestWithAuth = ({ type, url, options = {} }) => {
   return new Promise((resolve, reject) => {
     wx.getStorage({
-      key: "ACCESS_TOKEN",
+      key: ACCESS_TOKEN,
       success: res => {
         const access_token = res && res.data;
         wx[type]({

@@ -1,10 +1,11 @@
 const { request } = require("./utils/request");
+const { ACCESS_TOKEN } = require("./constants");
 
 module.exports = function() {
   wx.checkSession({
     success: () => {
       wx.getStorage({
-        key: "ACCESS_TOKEN",
+        key: ACCESS_TOKEN,
         success: res => {
           const access_token = res && res.data;
           if (!access_token) {

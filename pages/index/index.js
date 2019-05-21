@@ -1,5 +1,6 @@
 //index.js
 const login = require("../../login");
+const { ACCESS_TOKEN } = require("../../constants");
 const { NAMES, FNS } = require("./fns/index");
 const { NOTHING } = NAMES;
 const KEYS = Object.keys(NAMES);
@@ -29,10 +30,15 @@ Page({
   },
 
   reLogin: function() {
-    this.setData({
-      loginStatus: "loading"
+    wx.removeStorage({
+      key: ACCESS_TOKEN,
+      success: res => {
+        this.setData({
+          loginStatus: "loading"
+        });
+        login.call(app);
+      }
     });
-    login.call(app);
   },
 
   radioChange(e) {
@@ -84,13 +90,13 @@ Page({
       });
     }
 
-    app.loginReadyCallback = res => {
+    getApp().loginReadyCallback = res => {
       this.setData({
         loginStatus: "logined"
       });
     };
 
-    app.loginErrorCallback = res => {
+    getApp().loginErrorCallback = res => {
       this.setData({
         loginStatus: "not-logined"
       });
