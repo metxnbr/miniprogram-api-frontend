@@ -53,7 +53,7 @@ const requestWithAuth = ({ type, url, options = {} }) => {
         });
       },
       fail: e => {
-        reject(e);
+        reject({ e, statusCode: 401 });
       }
     });
   });
