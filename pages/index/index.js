@@ -1,6 +1,7 @@
 //index.js
 const login = require("../../login");
 const { ACCESS_TOKEN } = require("../../constants");
+const user = require("./user");
 const { NAMES, FNS } = require("./fns/index");
 const { NOTHING } = NAMES;
 const KEYS = Object.keys(NAMES);
@@ -90,17 +91,18 @@ Page({
       });
     }
 
-    getApp().loginReadyCallback = res => {
+    const globalLoginStatus = app.globalData.loginStatus;
+    if (globalLoginStatus) {
       this.setData({
-        loginStatus: "logined"
+        loginStatus: globalLoginStatus
       });
-    };
-
-    getApp().loginErrorCallback = res => {
-      this.setData({
-        loginStatus: "not-logined"
-      });
-    };
+    } else {
+      app.loginReadyCallback = ({ status }) => {
+        this.setData({
+          loginStatus: status
+        });
+      };
+    }
   },
   getUserInfo: function(e) {
     console.log(e);

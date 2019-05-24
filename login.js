@@ -1,6 +1,13 @@
 const { request } = require("./utils/request");
 const { ACCESS_TOKEN } = require("./constants");
 
+function setLoginReadyCallback({ res, status }) {
+  this.globalData.loginStatus = status;
+  if (this.loginReadyCallback) {
+    this.loginReadyCallback({res, status});
+  }
+}
+
 module.exports = function() {
   wx.checkSession({
     success: () => {
@@ -11,9 +18,7 @@ module.exports = function() {
           if (!access_token) {
             login.call(this);
           } else {
-            if (this.loginReadyCallback) {
-              this.loginReadyCallback(res);
-            }
+            setLoginReadyCallback.call(this, { res, status: "logined" });
           }
         },
         fail: () => {
@@ -49,20 +54,18 @@ module.exports = function() {
               key: "ACCESS_TOKEN",
               data: access_token,
               success: res => {
-                if (this.loginReadyCallback) {
-                  this.loginReadyCallback(res);
-                }
+                setLoginReadyCallback.call(this, { res, status: "logined" });
               },
               fail: e => {
-                console.log(e);
+                setLoginReadyCallback.call(this, {
+                  res,
+                  status: "not-logined"
+                });
               }
             });
           })
           .catch(e => {
-            console.log(e);
-            if (this.loginErrorCallback) {
-              this.loginErrorCallback(e);
-            }
+            setLoginReadyCallback.call(this, { res, status: "not-logined" });
           });
       }
     });
