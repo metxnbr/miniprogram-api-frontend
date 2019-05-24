@@ -1,7 +1,6 @@
 //index.js
 const login = require("../../login");
 const { ACCESS_TOKEN } = require("../../constants");
-const user = require("./user");
 const { NAMES, FNS } = require("./fns/index");
 const { NOTHING } = NAMES;
 const KEYS = Object.keys(NAMES);
