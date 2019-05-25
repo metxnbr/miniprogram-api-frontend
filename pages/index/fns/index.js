@@ -5,6 +5,7 @@ const NAMES = require('./constants')
 const REQUEST_AUTH = require('./requestAuth')
 const REQUEST_WITHOUT_AUTH = require('./reqWithoutAuth')
 const REQUEST_USER_DATA = require('./requestUserData')
+const UPLOAD_IMAGE = require('./uploadImage')
 const NOTHING = require('./nothing')
 
 
@@ -14,6 +15,7 @@ module.exports = {
     REQUEST_AUTH,
     REQUEST_WITHOUT_AUTH,
     REQUEST_USER_DATA,
+    UPLOAD_IMAGE,
     NOTHING
   }
 }
