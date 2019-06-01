@@ -4,7 +4,7 @@ const { ACCESS_TOKEN } = require("./constants");
 function setLoginReadyCallback({ res, status }) {
   this.globalData.loginStatus = status;
   if (this.loginReadyCallback) {
-    this.loginReadyCallback({res, status});
+    this.loginReadyCallback({ res, status });
   }
 }
 
@@ -50,6 +50,10 @@ module.exports = function() {
         request(url, options)
           .then(res => {
             const { access_token } = (res && res.data) || {};
+            if (!access_token) {
+              throw new Error("登录失败");
+            }
+
             wx.setStorage({
               key: "ACCESS_TOKEN",
               data: access_token,
