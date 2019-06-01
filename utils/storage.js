@@ -4,15 +4,15 @@ class Storage {
   }
 
   setStorage(data) {
-    return new Promise((reject, resolve) => {
+    return new Promise((resolve, reject) => {
       wx.setStorage({
         key: this.key,
         data,
         success: res => {
-          reject(res);
+          resolve(res);
         },
         fail: e => {
-          resolve(e);
+          reject(e);
         }
       });
     });
