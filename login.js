@@ -1,5 +1,5 @@
 const { request } = require("./utils/request");
-const { ACCESS_TOKEN } = require("./constants");
+const tokenStorage = require("./utils/tokenStorage");
 
 function setLoginReadyCallback({ res, status }) {
   this.globalData.loginStatus = status;
@@ -11,20 +11,19 @@ function setLoginReadyCallback({ res, status }) {
 module.exports = function() {
   wx.checkSession({
     success: () => {
-      wx.getStorage({
-        key: ACCESS_TOKEN,
-        success: res => {
+      tokenStorage
+        .getStorage()
+        .then(res => {
           const access_token = res && res.data;
           if (!access_token) {
             login.call(this);
           } else {
             setLoginReadyCallback.call(this, { res, status: "logined" });
           }
-        },
-        fail: () => {
+        })
+        .catch(e => {
           login.call(this);
-        }
-      });
+        });
     },
     fail: () => {
       login.call(this);
@@ -54,19 +53,17 @@ module.exports = function() {
               throw new Error("登录失败");
             }
 
-            wx.setStorage({
-              key: "ACCESS_TOKEN",
-              data: access_token,
-              success: res => {
+            tokenStorage
+              .setStorage(access_token)
+              .then(res => {
                 setLoginReadyCallback.call(this, { res, status: "logined" });
-              },
-              fail: e => {
+              })
+              .catch(e => {
                 setLoginReadyCallback.call(this, {
-                  res,
+                  res: e,
                   status: "not-logined"
                 });
-              }
-            });
+              });
           })
           .catch(e => {
             setLoginReadyCallback.call(this, { res, status: "not-logined" });
